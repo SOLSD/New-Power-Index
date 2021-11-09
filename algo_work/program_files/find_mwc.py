@@ -17,9 +17,20 @@ def generate_coalitions(lst, target):
                     if total >= target:
                         return (combination)
 
-'''
-def test_for_mwc(combination, target):
+
+def minimal_test(combination, total, target):
+    """
+    Takes combination and checks if it is minimal
+
+    The each party's votes are removed from the total one at a time
+    and if for all parties, each time that happens the total is
+    smaller than the target, the combination is minimal.
+    """
     count = 0
-    for party in combination:
-'''
+    for i in range(len(combination)):
+        check = total - combination[i][-1]
+        if check < target:
+            count += 1
+    if count == len(combination):
+        return True
 
