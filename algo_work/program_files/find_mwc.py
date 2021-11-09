@@ -15,11 +15,11 @@ def generate_coalitions(lst, target):
                     combination.append(lst[j])
                     total += lst[j][-1]
                     if total >= target:
-                        test_for_mwc(combination, target)
+                        return (combination)
 
-
+'''
 def test_for_mwc(combination, target):
     count = 0
     for party in combination:
-
+'''
 
