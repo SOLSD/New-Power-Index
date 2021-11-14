@@ -6,16 +6,22 @@ def generate_coalitions(lst, target):
     creating a list of all winning combinations.
 
     """
+    list_of_mwc = []
+    index = 0
     for i in range(len(lst)):
-        if i != len(lst) - 1:   # Checks if element last in list
+        if i != len(lst) - 1:  # Checks if element last in list
             combination = [lst[i]]
             total = lst[i][-1]
             for j in range(len(lst)):
                 if i != j and i < j:
                     combination.append(lst[j])
                     total += lst[j][-1]
-                    if total >= target:
-                        return (combination)
+                    if total >= target and (minimal_test(combination, total, target)):
+                        list_of_mwc.insert(index, combination)
+                        index += 1
+                        break
+            continue
+    print(list_of_mwc)
 
 
 def minimal_test(combination, total, target):
@@ -33,4 +39,4 @@ def minimal_test(combination, total, target):
             count += 1
     if count == len(combination):
         return True
-
+    return False
