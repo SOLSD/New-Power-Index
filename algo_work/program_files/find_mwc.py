@@ -12,12 +12,13 @@ def generate_coalitions(lst, target):
     list_of_mwc = []
     index = 0
     for i in range(1, len(lst)+1):
-        combination = list(combinations(lst, i))
+        combination = list(combinations(lst, i))  # Finds all combinations of size i from lst
+        # list function coverts into list format, result is a list of all combinations of size i
         for j in range(len(combination)):
-            coalition_to_test = list(combination[j])
+            coalition_to_test = list(combination[j])  # Each combination in list is extracted to then be tested
             total = 0
             for k in range(len(coalition_to_test)):
-                total += coalition_to_test[k][-1]
+                total += coalition_to_test[k][-1]  # Total is the sum of the votes in each coalition
             if minimal_test(coalition_to_test, total, target):
                 list_of_mwc.insert(index, coalition_to_test)
     return list_of_mwc
