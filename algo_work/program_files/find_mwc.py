@@ -1,3 +1,6 @@
+from itertools import combinations
+
+
 def generate_coalitions(lst, target):
     """
     Finds all combinations needed from parties
@@ -8,20 +11,16 @@ def generate_coalitions(lst, target):
     """
     list_of_mwc = []
     index = 0
-    for i in range(len(lst)):
-        if i != len(lst) - 1:  # Checks if element last in list
-            combination = [lst[i]]
-            total = lst[i][-1]
-            for j in range(len(lst)):
-                if i != j and i < j:
-                    combination.append(lst[j])
-                    total += lst[j][-1]
-                    if total >= target and (minimal_test(combination, total, target)):
-                        list_of_mwc.insert(index, combination)
-                        index += 1
-                        break
-            continue
-    print(list_of_mwc)
+    for i in range(1, len(lst)+1):
+        combination = list(combinations(lst, i))
+        for j in range(len(combination)):
+            coalition_to_test = list(combination[j])
+            total = 0
+            for k in range(len(coalition_to_test)):
+                total += coalition_to_test[k][-1]
+            if minimal_test(coalition_to_test, total, target):
+                list_of_mwc.insert(index, coalition_to_test)
+    return list_of_mwc
 
 
 def minimal_test(combination, total, target):
@@ -37,6 +36,6 @@ def minimal_test(combination, total, target):
         check = total - combination[i][-1]
         if check < target:
             count += 1
-    if count == len(combination):
+    if count == len(combination) and total >= target:
         return True
     return False

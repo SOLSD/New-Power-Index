@@ -15,5 +15,4 @@ def get_score(party_name, count, denominator):
     print("Score for party ", party_name, " is ", (count/denominator))
 
 
-
 tally([[('B', 5), ('C', 3), ('D', 4), ('E', 3)], [('D', 4), ('E', 3), ('F', 8)]])
