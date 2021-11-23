@@ -60,8 +60,3 @@ def conductance(parties, mwcs, prob_matrix):
         conductances.append((mwc, psi))
     print(conductances)
     return conductances
-
-
-prob_matrix = set_up_prob_matrix([('A', 2), ('B', 5), ('C', 3), ('D', 4)])
-conductance([('A', 2), ('B', 5), ('C', 3), ('D', 4)], [[('A', 2), ('B', 5), ('C', 3), ('D', 4)], [('A', 2), ('C', 3)],
-                                                       [('A', 2), ('B', 5), ('D', 4)]], prob_matrix)
