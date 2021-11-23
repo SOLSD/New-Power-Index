@@ -60,3 +60,18 @@ def conductance(parties, mwcs, prob_matrix):
         conductances.append((mwc, psi))
     print(conductances)
     return conductances
+
+
+def cep(parties, mwcs, prob_matrix):
+    ceps = []
+    for mwc in mwcs:
+        vertices = list(it.combinations(mwc, 2))  # Creates all vertex pairings of the mwc in the graph
+        cep = 1
+        for vertex in vertices:
+            row = parties.index(vertex[0])  # Since prob matrix and parties have the same ordering of the parties...
+            column = parties.index(vertex[1])  # ...this lines up the rows and columns.
+            cep *= prob_matrix[row][column]
+        ceps.append((mwc, cep))
+    print(ceps)
+    return ceps
+
