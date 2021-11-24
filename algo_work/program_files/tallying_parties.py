@@ -16,4 +16,7 @@ def tally(mwcs):
             count = list_of_lists.count(list_of_lists[i])
             score_tuple = (list_of_lists[i][0], count/denominator)
             scores.append(score_tuple)
+    print(scores)
     return scores
+
+tally([[('A', 2), ('B', 5), ('D', 4), ('F', 8)], [('C', 3), ('D', 4), ('E', 3), ('F', 8)], [('A', 2), ('B', 5), ('C', 3), ('F', 8)]])
