@@ -18,3 +18,13 @@ def winning_party(parties, index):
             final_scores.append((name, 0))
     return final_scores
 
+
+def sum_is_target_check(parties, target):
+    final_scores = []
+    total = 0
+    for i in range(len(parties)):
+        total += parties[i][-1]
+    if total == target:
+        return True
+    return False
+

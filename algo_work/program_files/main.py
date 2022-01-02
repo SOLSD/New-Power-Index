@@ -16,6 +16,16 @@ def run():
 
     statement = "Enter the number of votes needed to win: "
     target = int(input(statement))
+
+    if edge_cases.sum_is_target_check(parties, target):
+        final_scores = []
+        for i in range(len(parties)):
+            name = parties[i][0]
+            final_scores.append((name, 1/len(parties)))
+        print("The final results are:")
+        print(final_scores)
+        quit()
+
     target_check = edge_cases.party_hits_target_check(parties, target)
     if target_check > -1:
         print("The final results are:")
