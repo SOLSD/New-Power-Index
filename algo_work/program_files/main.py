@@ -14,6 +14,9 @@ def run():
         number_of_votes = int(input(statement))
         parties.append((name_of_party, number_of_votes))
 
+    if edge_cases.same_name_check(parties):
+        run()
+
     statement = "Enter the number of votes needed to win: "
     target = int(input(statement))
 

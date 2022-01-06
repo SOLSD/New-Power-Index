@@ -20,11 +20,19 @@ def winning_party(parties, index):
 
 
 def sum_is_target_check(parties, target):
-    final_scores = []
     total = 0
     for i in range(len(parties)):
         total += parties[i][-1]
     if total == target:
         return True
+    return False
+
+
+def same_name_check(parties):
+    for i in range(len(parties)):
+        for j in range(len(parties)):
+            if i != j and parties[i][0] == parties[j][0]:
+                print("Party", i+1, "and Party", j+1, "are the same. Rename them.")
+                return True
     return False
 
