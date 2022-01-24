@@ -11,6 +11,7 @@ def generate_coalitions(lst, target):
     """
     list_of_mwc = []
     index = 0
+    count = 0
     for i in range(1, len(lst)+1):
         combination = list(combinations(lst, i))  # Finds all combinations of size i from lst
         # list function coverts into list format, result is a list of all combinations of size i

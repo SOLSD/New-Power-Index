@@ -10,10 +10,12 @@ def set_up_prob_matrix(parties):
     for i in range(len(parties)):
         for j in range(len(parties)):
             if i < j:
-                statement = "Enter probability for (", parties[i][0], parties[j][0], ")"
-                prob = input(statement)  # User input to give probability to appropriate indices in matrix
-                prob_matrix[i][j] = prob
-                prob_matrix[j][i] = prob  # Makes matrix symmetrical
+                fileobj = open("US_probability_data")
+                prob_data = fileobj.readlines()
+                prob_data = [line.strip() for line in prob_data]
+                for k in range(len(prob_data)):
+                    prob_matrix[i][j] = float(prob_data[k])
+                    prob_matrix[j][i] = float(prob_data[k])
     return prob_matrix
 
 
