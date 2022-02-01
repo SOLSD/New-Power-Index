@@ -1,7 +1,22 @@
 from itertools import combinations
 
 
-def generate_coalitions(lst, target):
+def find_min_coalition(parties, target):
+    votes = []
+    min_start = 0
+    for party in parties:
+        votes.append(party[-1])
+    votes = sorted(votes)
+    total = 0
+    for i in range(len(votes) + 1):
+        total += votes[-i]
+        if total >= target:
+            min_start = i
+            break
+    return min_start
+
+
+def generate_coalitions(lst, target, starting_point):
     """
     Finds all combinations needed from parties
 
@@ -12,7 +27,7 @@ def generate_coalitions(lst, target):
     list_of_mwc = []
     index = 0
     count = 0
-    for i in range(1, len(lst)+1):
+    for i in range(starting_point, len(lst)+1):
         combination = list(combinations(lst, i))  # Finds all combinations of size i from lst
         # list function coverts into list format, result is a list of all combinations of size i
         for j in range(len(combination)):

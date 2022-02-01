@@ -29,12 +29,12 @@ def conductance(parties, mwcs, prob_matrix):
     for mwc in mwcs:
 
         # Internal Strength
-        vertices = list(it.combinations(mwc, 2))  # Creates all vertex pairings of the mwc in the graph
+        edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
         everything_in = 0
         everything_out = 0
-        for vertex in vertices:
-            row = parties.index(vertex[0])  # Since prob matrix and parties have the same ordering of the parties...
-            column = parties.index(vertex[1])  # ...this lines up the rows and columns.
+        for edge in edges:
+            row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
+            column = parties.index(edge[1])  # ...this lines up the rows and columns.
             everything_in += prob_matrix[row][column]
 
         # External Pull
@@ -59,11 +59,11 @@ def cep(parties, mwcs, prob_matrix):
     """
     ceps = []
     for mwc in mwcs:
-        vertices = list(it.combinations(mwc, 2))  # Creates all vertex pairings of the mwc in the graph
+        edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
         cep = 1
-        for vertex in vertices:
-            row = parties.index(vertex[0])  # Since prob matrix and parties have the same ordering of the parties...
-            column = parties.index(vertex[1])  # ...this lines up the rows and columns.
+        for edge in edges:
+            row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
+            column = parties.index(edge[1])  # ...this lines up the rows and columns.
             cep *= prob_matrix[row][column]  # Multiplies instead of adds
         ceps.append((mwc, cep))
     return ceps

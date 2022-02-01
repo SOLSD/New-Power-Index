@@ -7,6 +7,7 @@ parties = []
 
 
 def run():
+
     fileobj = open("US_states_votes")
     parties_and_votes = fileobj.readlines()
     parties_and_votes = [line.strip() for line in parties_and_votes]
@@ -19,6 +20,9 @@ def run():
 
     statement = "Enter the number of votes needed to win: "
     target = int(input(statement))
+    if edge_cases.can_reach_target(parties, target):
+        print("Sum of votes doesn't reach target. Reduce target required")
+        quit()
 
     if edge_cases.sum_is_target_check(parties, target):
         final_scores = []
@@ -36,7 +40,8 @@ def run():
     else:
         prob_matrix = graph_theory_section.set_up_prob_matrix(parties)
         print("Matrix complete")
-        list_of_mwcs = find_mwc.generate_coalitions(parties, target)
+        starting_point = find_mwc.find_min_coalition(parties, target)
+        list_of_mwcs = find_mwc.generate_coalitions(parties, target, starting_point)
         print("MWCs found")
         conductances = graph_theory_section.conductance(parties, list_of_mwcs, prob_matrix)
         print("Conductances calculated")
@@ -47,6 +52,8 @@ def run():
         list_of_lambdas = sorted(list_of_lambdas)
         unnormalised_scores = (all_the_lambda.score_lambda_fun_times(tally, list_of_lambdas))
         all_the_lambda.normalise(unnormalised_scores)
+
+
 
 
 run()

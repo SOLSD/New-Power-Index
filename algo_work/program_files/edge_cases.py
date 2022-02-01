@@ -36,3 +36,12 @@ def same_name_check(parties):
                 return True
     return False
 
+
+def can_reach_target(parties, target):
+    total = 0
+    for i in range(len(parties)):
+        total += parties[i][-1]
+    if total < target:
+        return True
+    return False
+
