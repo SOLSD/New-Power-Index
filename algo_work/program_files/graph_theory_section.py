@@ -25,7 +25,6 @@ def conductance(parties, mwc, prob_matrix):
 
     Calculates the internal strength and external pull of the mwc then divides the latter by the sum of both.
     """
-    conductances = []
 
     # Internal Strength
     edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
@@ -46,23 +45,19 @@ def conductance(parties, mwc, prob_matrix):
 
     # Final conductance
     psi = (everything_out / (everything_out + (2 * everything_in)))
-    conductances.append((mwc, psi))
-    return conductances
+    return psi
 
 
-def cep(parties, mwcs, prob_matrix):
+def cep(parties, mwc, prob_matrix):
     """
     Finds the Coalition Existence Probability of each mwc.
 
     Does this in the same way as internal strength in conductance function but multiplies instead of adds.
     """
-    ceps = []
-    for mwc in mwcs:
-        edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
-        cep = 1
-        for edge in edges:
-            row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
-            column = parties.index(edge[1])  # ...this lines up the rows and columns.
-            cep *= prob_matrix[row][column]  # Multiplies instead of adds
-        ceps.append((mwc, cep))
-    return ceps
+    edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
+    cep = 1
+    for edge in edges:
+        row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
+        column = parties.index(edge[1])  # ...this lines up the rows and columns.
+        cep *= prob_matrix[row][column]  # Multiplies instead of adds
+    return cep

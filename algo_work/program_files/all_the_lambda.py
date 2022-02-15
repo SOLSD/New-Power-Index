@@ -1,31 +1,35 @@
-
-def Lambda(conductance, cep):
-    return cep/conductance
+list_of_lambda = []
 
 
-def assign_Lambda(parties, list_of_conductances, list_of_ceps):
+def assign_Lambda(mwc, conductance, cep):
     """
     Generates and assigns lambda value to each party.
 
     Finds the conductance and cep of each mwc and uses that to generate a value for lambda.
     From there it applies to a party, the largest lambda from a mwc that the party in question is a part of.
     """
-    list_of_Lambda = []
-    party_lambdas = []
-    for i in range(len(list_of_conductances)):
-        Lambda_to_use = Lambda(list_of_conductances[i][-1], list_of_ceps[i][-1])  # Finds the corresponding conductance
-        # and cep for each mwc and divides the latter by the former
-        list_of_Lambda.append((list_of_conductances[i][0], Lambda_to_use))  # Adds the mwc and its lambda value as a
-        # tuple to the list
-    for party in parties:
-        best_lambda = 0
-        for i in range(len(list_of_Lambda)):
-            if party in list_of_Lambda[i][0] and list_of_Lambda[i][-1] > best_lambda:  # Checks if the party is in the
-                # mwc and that the current value of lambda is larger than the previous largest
-                best_lambda = list_of_Lambda[i][-1]
-                party_lambda = list_of_Lambda[i][-1]
-        party_lambdas.append((party, party_lambda))
-    return party_lambdas
+
+    lambda_of_mwc = cep/conductance
+    if len(list_of_lambda) == 0:    # Makes sure there is an entry to iterate over
+        list_of_lambda.append((mwc[0][-1], 0))
+    for i in range(len(mwc)):
+        count = 0   # It's a Surprise Tool That Will Helps Us Later
+        for j in range(len(list_of_lambda)):
+            if mwc[i][-1] in list_of_lambda[j][0] and list_of_lambda[j][-1] < lambda_of_mwc:
+                list_of_lambda.pop(j)   # Replaces the tuple
+                list_of_lambda.insert(j, (mwc[i][-1], lambda_of_mwc))
+                print("yay, change!")
+                break
+            elif mwc[i][-1] in list_of_lambda[j][0] and list_of_lambda[j][-1] >= lambda_of_mwc:
+                print("yay, no change")
+                break
+            else:
+                count += 1  # Counting each time the party being checked isn't in the list
+                if count >= len(list_of_lambda):    # If not in list at all (count == length) add to list
+                    list_of_lambda.append((mwc[i][-1], lambda_of_mwc))
+                    print("yay, added!")
+    print(list_of_lambda)
+    return list_of_lambda
 
 
 def score_lambda_fun_times(scores, lambdas):
@@ -34,8 +38,15 @@ def score_lambda_fun_times(scores, lambdas):
     """
     final_scores = []
     for i in range(len(scores)):
-        final_scores.append((scores[i][0], scores[i][-1]*lambdas[i][-1]))  # Multiplies the tally from
+        final_scores.append((scores[i][-1]*lambdas[i][-1], scores[i][0]))  # Multiplies the tally from
         # tallying_parties.py by the lambda for each party
+    sorted(final_scores)
+    for score in final_scores:
+        num = score[0]
+        name = score[-1]
+        index = final_scores.index(score)
+        final_scores.pop(index)
+        final_scores.insert(index, (name, num))
     return final_scores
 
 

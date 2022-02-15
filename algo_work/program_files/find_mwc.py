@@ -1,5 +1,5 @@
 from itertools import combinations
-import graph_theory_section
+import graph_theory_section, all_the_lambda, tallying_parties
 
 
 def find_min_coalition(parties, target):
@@ -12,7 +12,7 @@ def find_min_coalition(parties, target):
     for i in range(len(votes) + 1):
         total += votes[-i]
         if total >= target:
-            min_start = i + 1
+            min_start = i
             break
     return min_start
 
@@ -37,12 +37,19 @@ def generate_coalitions(parties, target, starting_point, prob_matrix):
             print("%d / %d" % (num_mwcs, num_all))
             if minimal_test(combo, total, target):
                 num_mwcs += 1
+                psi = graph_theory_section.conductance(parties, combo, prob_matrix)
+                cep = graph_theory_section.cep(parties, combo, prob_matrix)
+                Lambda = all_the_lambda.assign_Lambda(combo, psi, cep)
+                tally = tallying_parties.tally_up(combo)
             if total < target:
                 break
             else:
                 continue
     print("%d / %d" % (num_mwcs, num_all))
     print("Percentage of all combinations is: %f" % (num_mwcs/num_all))
+    print("Lambda is:", Lambda)
+    print("Tally is:", tally)
+    return (Lambda, tally)
 
 
 def minimal_test(combination, total, target):
