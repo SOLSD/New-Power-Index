@@ -3,7 +3,7 @@ import numpy as np
 
 def party_hits_target_check(parties, target):
     for i in range(len(parties)):
-        if parties[i][-1] >= target:
+        if parties[i][0] >= target:
             return i
     return -1
 
@@ -11,7 +11,7 @@ def party_hits_target_check(parties, target):
 def winning_party(parties, index):
     final_scores = []
     for i in range(len(parties)):
-        name = parties[i][0]
+        name = parties[i][-1]
         if i == index:
             final_scores.append((name, 1))
         else:
@@ -22,7 +22,7 @@ def winning_party(parties, index):
 def sum_is_target_check(parties, target):
     total = 0
     for i in range(len(parties)):
-        total += parties[i][-1]
+        total += parties[i][0]
     if total == target:
         return True
     return False
@@ -31,7 +31,7 @@ def sum_is_target_check(parties, target):
 def same_name_check(parties):
     for i in range(len(parties)):
         for j in range(len(parties)):
-            if i != j and parties[i][0] == parties[j][0]:
+            if i != j and parties[i][-1] == parties[j][-1]:
                 print("Party", i+1, "and Party", j+1, "are the same. Rename them.")
                 return True
     return False
@@ -40,7 +40,7 @@ def same_name_check(parties):
 def can_reach_target(parties, target):
     total = 0
     for i in range(len(parties)):
-        total += parties[i][-1]
+        total += parties[i][0]
     if total < target:
         return True
     return False

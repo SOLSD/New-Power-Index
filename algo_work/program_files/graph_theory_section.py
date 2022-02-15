@@ -2,7 +2,7 @@ import numpy as np
 import itertools as it
 
 
-def set_up_prob_matrix(parties):
+def set_up_prob_matrix(parties, prob_location):
     """
     Method to create the matrix of probabilities of parties joining coalitions with others.
     """
@@ -10,7 +10,7 @@ def set_up_prob_matrix(parties):
     for i in range(len(parties)):
         for j in range(len(parties)):
             if i < j:
-                fileobj = open("US_probability_data")
+                fileobj = open(prob_location)
                 prob_data = fileobj.readlines()
                 prob_data = [line.strip() for line in prob_data]
                 for k in range(len(prob_data)):
@@ -19,35 +19,34 @@ def set_up_prob_matrix(parties):
     return prob_matrix
 
 
-def conductance(parties, mwcs, prob_matrix):
+def conductance(parties, mwc, prob_matrix):
     """
     Function calculates the Conductance of the probability matrix.
 
     Calculates the internal strength and external pull of the mwc then divides the latter by the sum of both.
     """
     conductances = []
-    for mwc in mwcs:
 
-        # Internal Strength
-        edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
-        everything_in = 0
-        everything_out = 0
-        for edge in edges:
-            row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
-            column = parties.index(edge[1])  # ...this lines up the rows and columns.
-            everything_in += prob_matrix[row][column]
+    # Internal Strength
+    edges = list(it.combinations(mwc, 2))  # Creates all edge pairings of the mwc in the graph
+    everything_in = 0
+    everything_out = 0
+    for edge in edges:
+        row = parties.index(edge[0])  # Since prob matrix and parties have the same ordering of the parties...
+        column = parties.index(edge[1])  # ...this lines up the rows and columns.
+        everything_in += prob_matrix[row][column]
 
-        # External Pull
-        for party in mwc:
-            row = parties.index(party)
-            for i in range(len(parties)):
-                if prob_matrix[row][i] != 0 and parties[i] not in mwc:  # Checks if the column currently being looked at
-                    # is associated with a party not in the mwc and is > 0
-                    everything_out += prob_matrix[row][i]
+    # External Pull
+    for party in mwc:
+        row = parties.index(party)
+        for i in range(len(parties)):
+            if prob_matrix[row][i] != 0 and parties[i] not in mwc:  # Checks if the column currently being looked at
+                # is associated with a party not in the mwc and is > 0
+                everything_out += prob_matrix[row][i]
 
-        # Final conductance
-        psi = (everything_out / (everything_out + (2 * everything_in)))
-        conductances.append((mwc, psi))
+    # Final conductance
+    psi = (everything_out / (everything_out + (2 * everything_in)))
+    conductances.append((mwc, psi))
     return conductances
 
 
