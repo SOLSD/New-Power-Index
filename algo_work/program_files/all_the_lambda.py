@@ -18,17 +18,13 @@ def assign_Lambda(mwc, conductance, cep):
             if mwc[i][-1] in list_of_lambda[j][0] and list_of_lambda[j][-1] < lambda_of_mwc:
                 list_of_lambda.pop(j)   # Replaces the tuple
                 list_of_lambda.insert(j, (mwc[i][-1], lambda_of_mwc))
-                print("yay, change!")
                 break
             elif mwc[i][-1] in list_of_lambda[j][0] and list_of_lambda[j][-1] >= lambda_of_mwc:
-                print("yay, no change")
                 break
             else:
                 count += 1  # Counting each time the party being checked isn't in the list
                 if count >= len(list_of_lambda):    # If not in list at all (count == length) add to list
                     list_of_lambda.append((mwc[i][-1], lambda_of_mwc))
-                    print("yay, added!")
-    print(list_of_lambda)
     return list_of_lambda
 
 
@@ -47,6 +43,7 @@ def score_lambda_fun_times(scores, lambdas):
         index = final_scores.index(score)
         final_scores.pop(index)
         final_scores.insert(index, (name, num))
+    print("Unnormalised Scores are:", final_scores)
     return final_scores
 
 

@@ -16,7 +16,6 @@ def tally_up(mwc):
                 count += 1  # Counting each time the party being checked isn't in the list
                 if count >= len(tally):  # If not in list at all (count == length) add to list
                     tally.append((mwc[i][-1], 1))
-    print(tally)
     return tally
 
 
@@ -28,6 +27,5 @@ def final_tally(tally):
     for party in tally:
         tally = party[-1]/denominator
         final_tally.append((party[0], tally))
-    print(final_tally)
     return final_tally
 
