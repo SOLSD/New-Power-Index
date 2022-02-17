@@ -1,4 +1,4 @@
-from algo_work.program_files import all_the_lambda, find_mwc, graph_theory_section, tallying_parties, edge_cases
+from algo_work.program_files import all_the_lambda, find_mwc, graph_theory_section, tallying_parties, edge_cases, display_graphs
 
 
 def new_run():
@@ -78,7 +78,7 @@ def new_run():
     print("---------------------------------------------------------------------")
     normalised_scores = all_the_lambda.normalise(unnormalised_scores)
     print("---------------------------------------------------------------------")
-
+    display_graphs.plot_graph(normalised_scores)
 
 
 new_run()

@@ -43,6 +43,7 @@ def score_lambda_fun_times(scores, lambdas):
         index = final_scores.index(score)
         final_scores.pop(index)
         final_scores.insert(index, (name, num))
+    sorted(final_scores)
     print("Unnormalised Scores are:", final_scores)
     return final_scores
 
