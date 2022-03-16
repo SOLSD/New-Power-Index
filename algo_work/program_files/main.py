@@ -1,5 +1,6 @@
-from algo_work.program_files import all_the_lambda, find_mwc, graph_theory_section, tallying_parties, edge_cases, display_graphs
-
+#from algo_work.program_files import all_the_lambda, find_mwc, graph_theory_section, tallying_parties, edge_cases, display_graphs
+import all_the_lambda, find_mwc, graph_theory_section, tallying_parties, edge_cases, display_graphs
+import sys
 
 def new_run():
     """
@@ -9,14 +10,12 @@ def new_run():
     """
     Gets location of needed information from user.
     """
-    statement1 = "Enter location of party names and votes: "
-    party_location = str(input(statement1))
-    statement2 = "Enter location of party probabilities: "
-    prob_location = str(input(statement2))
-    statement3 = "Enter number of parties: "
-    num_parties = int(input(statement3))
-    statement4 = "Enter votes needed to win: "
-    target = int(input(statement4))
+    argv = sys.argv[1:]
+    print(argv)
+    party_location = str(argv[0])
+    prob_location = str(argv[1])
+    num_parties = int(argv[2])
+    target = int(argv[3])
     # --------------------------------------------------------
     """
     Loads and reads file for parties and votes information.
