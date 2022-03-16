@@ -45,7 +45,7 @@ def new_run():
         print("Sum of votes doesn't reach target. Reduce target required")
         quit()
 
-    """if edge_cases.sum_is_target_check(parties, target):
+    if edge_cases.sum_is_target_check(parties, target):
         final_scores = []
         for i in range(len(parties)):
             name = parties[i][0]
@@ -53,7 +53,6 @@ def new_run():
         print("The final results are:")
         print(final_scores)
         quit()
-        """
 
     target_check = edge_cases.party_hits_target_check(parties, target)
     if target_check > -1:
