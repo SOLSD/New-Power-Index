@@ -28,31 +28,24 @@ def generate_coalitions(parties, target, starting_point, prob_matrix):
     creating a list of all winning combinations.
 
     """
-    num_mwcs = 0
-    num_all = 0
+
     for i in range(starting_point, len(parties)+1):
         all_combos = combinations(parties, i)  # generates all combinations of length i from parties list
         for combo in all_combos:
             total = 0
-            num_all += 1
             for j in range(len(combo)):
                 total += combo[j][0]  # Calculates total votes for each coalition
-            print("%d / %d" % (num_mwcs, num_all))
-            if minimal_test(combo, total, target):  # Checks if coalition is M and W
-                num_mwcs += 1
-                psi = graph_theory_section.conductance(parties, combo, prob_matrix)  # Finds conductance of MWC
-                cep = graph_theory_section.cep(parties, combo, prob_matrix)  # Finds existence probability of MWC
-                Lambda = all_the_lambda.assign_Lambda(combo, psi, cep)  # Finds lambda value of MWC
-                tally = tallying_parties.tally_up(combo)
             if total < target:
-                break
-            else:
                 continue
-    print("%d / %d" % (num_mwcs, num_all))
-    print("Percentage of all combinations is: %f" % (num_mwcs/num_all))
-    print("Lambda is:", Lambda)
-    print("Tally is:", tally)
-    return (Lambda, tally)
+            if minimal_test(combo, total, target):  # Checks if coalition is M and W
+
+                print(combo)
+
+        psi = graph_theory_section.conductance(parties, combo, prob_matrix)  # Finds conductance of MWC
+        cep = graph_theory_section.cep(parties, combo, prob_matrix)  # Finds existence probability of MWC
+        Lambda = all_the_lambda.assign_Lambda(combo, psi, cep)  # Finds lambda value of MWC
+        tally = tallying_parties.tally_up(combo)
+
 
 
 def minimal_test(combination, total, target):
