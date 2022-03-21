@@ -41,10 +41,11 @@ def generate_coalitions(parties, target, starting_point, prob_matrix):
 
                 print(combo)
 
-        psi = graph_theory_section.conductance(parties, combo, prob_matrix)  # Finds conductance of MWC
-        cep = graph_theory_section.cep(parties, combo, prob_matrix)  # Finds existence probability of MWC
-        Lambda = all_the_lambda.assign_Lambda(combo, psi, cep)  # Finds lambda value of MWC
-        tally = tallying_parties.tally_up(combo)
+                psi = graph_theory_section.conductance(parties, combo, prob_matrix)  # Finds conductance of MWC
+                cep = graph_theory_section.cep(parties, combo, prob_matrix)  # Finds existence probability of MWC
+                Lambda = all_the_lambda.assign_Lambda(combo, psi, cep)  # Finds lambda value of MWC
+                tally = tallying_parties.tally_up(combo)
+    return (Lambda, tally)
 
 
 
